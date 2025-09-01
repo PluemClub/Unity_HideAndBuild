@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TextShow : MonoBehaviour
+{
+    public GameObject DisplayText;
+    public bool TextToggle;
+    public float DisappearTime;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        DisplayText.SetActive(true);
+        Destroy(DisplayText, DisappearTime);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
