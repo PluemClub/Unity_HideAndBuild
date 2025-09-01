@@ -1,0 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Flashbreak : MonoBehaviour
+{
+    public Collider hammerCol;
+
+    void Update()
+    {
+            hammerCol.enabled = true;
+    }
+}
