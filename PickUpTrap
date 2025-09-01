@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PickUpTrap : MonoBehaviour
+{
+    public GameObject text, item_collect, item_hand, Instruction;
+    public AudioSource pickup;
+    public bool interactable;
+    public float showtime;
+    public GameObject Ghost;
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("MainCamera"))
+        {
+            text.SetActive(true);
+            interactable = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("MainCamera"))
+        {
+            text.SetActive(false);
+            interactable = false;
+        }
+    }
+
+    void Update()
+    {
+        if (interactable == true)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                text.SetActive(false);
+                interactable = false;
+                pickup.Play();
+                item_hand.SetActive(true);
+                item_collect.SetActive(false);
+                Instruction.SetActive(true);
+                Destroy(Instruction, showtime);
+
+                Ghost.SetActive(true);
+            }
+        }
+
+    }
+}
