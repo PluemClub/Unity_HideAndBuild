@@ -1,0 +1,42 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TextUI : MonoBehaviour
+{
+    public GameObject DisplayText; // The UI text object to show
+    public AudioSource MissionUpdate; // Sound to play when triggered
+    private static GameObject activeText; // Tracks currently displayed text
+    private static HashSet<GameObject> triggeredObjects = new HashSet<GameObject>(); // Tracks triggered objects
+
+    private void Start()
+    {
+        if (DisplayText != null)
+        {
+            DisplayText.SetActive(false); // Ensure all texts are hidden at the start
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (DisplayText != null)
+        {
+            // Hide the previous text if it exists
+            if (activeText != null && activeText != DisplayText)
+            {
+                activeText.SetActive(false);
+            }
+
+            // Show the new text
+            DisplayText.SetActive(true);
+            activeText = DisplayText; // Set the active text reference
+
+            // Play sound only if this trigger has not been activated before
+            if (MissionUpdate != null && !triggeredObjects.Contains(gameObject))
+            {
+                MissionUpdate.Play();
+                triggeredObjects.Add(gameObject); // Mark this trigger as activated
+            }
+        }
+    }
+}
